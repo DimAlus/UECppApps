@@ -2,7 +2,7 @@
 #define __MAIN__
 
 #include <iostream>
-#include <math.h>
+#include <string>
 
 #include "math_lib.h"
 
