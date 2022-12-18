@@ -143,6 +143,7 @@
     <ClCompile Include="math_lib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="library.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="math_lib.h" />
   </ItemGroup>

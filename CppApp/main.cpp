@@ -1,11 +1,9 @@
 #include "main.h"
 
 
+#define N 20
+
 int main() {
-	std::string str = "string";
-	std::cout << str <<
-		";  len: " << str.length() <<
-		";  first: '" << str[0] <<
-		"';  last: '" << str[str.length() - 1] << "';";
+	PrintNumbers(N, 1);
 	return 0;
 }
