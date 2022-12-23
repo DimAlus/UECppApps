@@ -1,81 +1,48 @@
 #include "main.h"
-#include <memory>
 
-
-class s_Player {
-	int points;
-	std::string name;
+class Animal {
+protected:
+	Animal() {}
 public:
-	s_Player(int pts, std::string Name) : points(pts), name(Name) { }
-	int GetPoints() { return points; }
-	void SetPoints(int pts) { points = pts; }
-	std::string GetName() { return name; }
-	std::string ToString() {
-		return name + ": <" + std::to_string(points) +">";
+	virtual void Voice() {}
+};
+
+class Wolf :Animal {
+public:
+	void Voice() override {
+		std::cout << "Woof!\n";
 	}
 };
 
-#define DBG_
-
-#include <ctime>
-bool comp(void* a, void* b) {
-	return ((s_Player*)a)->GetPoints() <= ((s_Player*)b)->GetPoints();
-}
-int main() {
-	int N = 100000000;
-	int seed = 0;
-	unsigned int start_time;
-	srand(seed);
-
-
-	printf("%d\t%d\n\n", N, rand());
-
-	// init players
-	s_Player** players = new s_Player * [N];//malloc(sizeof(s_Player*) * N);
-
-	for (int i = 0; i < N; i++) {
-		players[i] = new s_Player(rand(), "Player " + std::to_string(i));
+class Fox :Wolf {
+public:
+	void Voice() override {
+		std::cout << "What does the Fox say?\n";
 	}
-
-#ifdef DBG
+};
+class Cat :Animal {
+public:
+	void Voice() override {
+		std::cout << "Nuaa!\n";
+	}
+};
+int main() {
+	int N = 20;
+	Animal** ans = new Animal * [N];
+	for (int i = 0; i < N; i++) {
+		float chance = (float)rand() / RAND_MAX;
+		if (chance < 0.3)
+			ans[i] = (Animal*)new Wolf;
+		else if (chance < 0.7)
+			ans[i] = (Animal*)new Fox;
+		else
+			ans[i] = (Animal*)new Cat;
+	}
 	for (int i = 0; i < N; i++)
-		std::cout << players[i]->ToString() << "\n";
-	std::cout << "\n\n\n\n\t\tSORTING\n\n";
-#endif
+		ans[i]->Voice();
 
-
-
-	start_time = clock();
-	SortMerge((void**)players, N, comp);//197972
-	//QuicklyBubleSort((void**)players, N, comp);//221332
-	//QuicklySort((void**)players, N, comp);
-	//QuickCombSort((void**)players, N, comp);
-	//SortBub((void**)players, N, comp);
-	start_time = clock() - start_time;
-
-
-
-
-
-
-
-	std::cout << start_time << "   " << clock() << "\n";
-
-#ifdef DBG
-	std::cout << "\n\n\n";
 	for (int i = 0; i < N; i++)
-		std::cout << players[i]->ToString() << "\n";
-#endif
-
-
-
-	std::cout << Check((void**)players, N, comp) << "\n\n";
-
-
-	//destroy elements
-	for (int i = 0; i < N; i++)
-		delete players[i];
-	delete[] players;
-	
+		delete ans[i];
+	delete[] ans;
 	return 0;
 }
