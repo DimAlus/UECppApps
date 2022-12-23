@@ -1,35 +1,15 @@
 #include "main.h"
 
 
-#define N1 6
-#define N2 10
 
-
-void PrintArr(int* arr, int h, int w) {
-	for (int i = 0; i < h; i++) {
-		for (int j = 0; j < w; j++)
-			std::cout << *(arr++) << "\t";
-		std::cout << "\n";
-	}
-}
-#include <time.h>
 
 int main() {
-
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
-
-	int arr[N1][N2];
-	for (int i = 0; i < N1; i++)
-		for (int j = 0, k = i; j < N2; j++, k++)
-			arr[i][j] = k;
+	CVector<int> v, v2(10, 23, 101);
+	CVector<double> v4(1, 2, 4);
+	v.SetX(3);
+	v.SetY(4);
+	v.SetZ(v2.GetY());
 	
-	PrintArr((int*)arr, N1, N2);
-
-	int m = buf.tm_mday % N1;
-
-	std::printf("\nSumm elements of %d row is %d\n\n", m, (int)(((float)N2 / 2 + m) * N2));
-
+	std::cout << v.ToString() << "\n" << v2.ToString() << "\n" << v4.ToString() << "\n" << v4.Length();
 	return 0;
 }
